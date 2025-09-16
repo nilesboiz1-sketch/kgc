@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Cute Girl</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+</head>
+<body>
+<script>
+let secretMessages1 = [
+  "1️⃣ Your eyes 👀 are like nothing I’ve ever seen...",
+  "2️⃣ Your face 😍, your eyes 👀, your smile 🌟—everything is perfect...",
+  "3️⃣ Your eyes 👀, your smile 🌞, your laugh 😂—everything is so beautiful..."
+];
+
+let secretMessages2 = [
+  `Teri aankhon mein jo chamak hai 👀✨,
+Usmein meri duniya basti hai.
+Tera muskaan 🌞, tera hansna 😂,
+Har cheez teri mujhe behad bhaati hai.
+
+Teri har adaaon 🥰 mein mera dil kho jaata hai,
+Teri awaaz 🗣️ sunte hi sukoon milta hai.
+Tu meri khushiyon ki wajah ❤️,
+Tu meri zindagi ki har khushboo hai.
+
+Isliye main bas yehi kahoon,
+Tum bin sab soona hai,
+Tum chahiye mujhe har pal,
+Tum hi meri jaan ho 💖🔥`
+];
+
+let current1 = 0;
+let current2 = 0;
+let msgY = 500;
+
+function setup() {
+  createCanvas(1250, 650);
+  background('#ecb3ff');
+  textFont('Courier');
+  textSize(16);
+  fill('black');
+  
+  drawLetters();
+  drawHeart(width/2, 200, 100);
+  drawRose(width - 300, 300);
+  
+  drawButton(50, 550, "Secret Gift 1", 'purple');
+  drawButton(250, 550, "Secret Gift 2", 'darkblue');
+}
+
+function draw() {
+  // no continuous drawing needed
+}
+
+function drawLetters() {
+  fill('red');
+  textSize(80);
+  text('B', 50, 150);
+  text('A', 150, 150);
+  text('B', 250, 150);
+  text('Y', 350, 150);
+}
+
+function drawHeart(x, y, size) {
+  fill('red');
+  beginShape();
+  let angleStep = PI/100;
+  for(let t = 0; t <= TWO_PI; t+=angleStep){
+    let x1 = size * 16 * pow(sin(t),3);
+    let y1 = -size * (13 * cos(t) - 5*cos(2*t) - 2*cos(3*t) - cos(4*t));
+    vertex(x + x1, y + y1);
+  }
+  endShape(CLOSE);
+}
+
+function drawRose(x, y){
+  // simple rose: red circle petals
+  fill('red');
+  for(let i = 0; i<8; i++){
+    ellipse(x + cos(TWO_PI*i/8)*30, y + sin(TWO_PI*i/8)*30, 50, 50);
+  }
+  fill('green');
+  ellipse(x, y + 50, 40, 60); // leaf
+}
+
+function drawButton(x, y, label, col){
+  fill(col);
+  rect(x, y, 150, 40, 10);
+  fill('white');
+  textSize(16);
+  textAlign(CENTER, CENTER);
+  text(label, x + 75, y + 20);
+}
+
+// detect button click
+function mousePressed(){
+  // Secret Gift 1 button
+  if(mouseX >= 50 && mouseX <= 200 && mouseY >= 550 && mouseY <= 590){
+    fill('purple');
+    text(secretMessages1[current1], 50, msgY);
+    msgY += 80;
+    current1 = (current1 + 1) % secretMessages1.length;
+  }
+  // Secret Gift 2 button
+  if(mouseX >= 250 && mouseX <= 400 && mouseY >= 550 && mouseY <= 590){
+    fill('darkblue');
+    text(secretMessages2[current2], 50, msgY);
+    msgY += 160;
+    current2 = (current2 + 1) % secretMessages2.length;
+  }
+}
+</script>
+</body>
+</html>
